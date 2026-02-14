@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <time.h>
 
 #define GAUCHE(i) (2 * (i) + 1)
 #define DROITE(i) (2 * (i) + 2)
@@ -63,40 +63,34 @@ void afficher_tas(int* tab, int taille) {
     }
     printf("]\n");
 }
-
-
 int main(void) {
-    int tas[100];
+    int tas[CAPACITE_MAX];
     int taille_utile = 0;
-    int capacite = 100;
+    srand(time(NULL));
 
-    // 1. On reconstruit le tas (comme on l'a fait avant)
-    int valeurs[] = {40, 51, 62, 48, 49, 55, 38, 42, 39};
-    for (int i = 0; i < 9; i++) {
-        entasser(tas, &taille_utile, capacite, valeurs[i]); // Ajoute "capacite" si tu as gardé cette version
+    int nb_valeurs = 9;
+
+    printf("=== CONSTRUCTION DU TAS ===\n");
+
+    for (int i = 0; i < nb_valeurs; i++) {
+        int val = rand() % 100;
+        printf("Ajout de %d... ", val);
+        
+        entasser(tas, &taille_utile, CAPACITE_MAX, val);
+
+        afficher_tas(tas, taille_utile);
     }
 
-    printf("--- ÉTAT INITIAL DU TAS ---\n");
-    // [ 38 39 40 42 49 62 55 51 48 ]
-    for(int i=0; i<taille_utile; i++) printf("%d ", tas[i]);
-    printf("\n\n");
-
-    // 2. On teste le détassement (Extraction du Min)
-    printf("--- EXTRACTION 1 ---\n");
-    detasser(tas, &taille_utile);
+    printf("\n=== RESULTAT FINAL ===\n");
+    printf("Taille du tas : %d\n", taille_utile);
+    printf("Racine (Min)  : %d\n", tas[0]);
     
-    // Le 38 a dû disparaître, et le tableau a dû se réorganiser !
-    printf("Tas apres extraction : ");
-    for(int i=0; i<taille_utile; i++) printf("%d ", tas[i]);
-    printf("\n\n");
+    printf("Tableau final : ");
+    afficher_tas(tas, taille_utile);
 
-    // 3. On teste une deuxième extraction
-    printf("--- EXTRACTION 2 ---\n");
-    detasser(tas, &taille_utile);
-    
-    printf("Tas apres 2eme extraction : ");
-    for(int i=0; i<taille_utile; i++) printf("%d ", tas[i]);
-    printf("\n");
+    // printf("=== DESTRUCTION DU TAS ===\n");
+    // detasser(tas, &taille_utile);
+    // afficher_tas(tas, taille_utile);
 
     return 0;
 }
