@@ -34,13 +34,10 @@ void entasser(int* tab, int* taille_utile,int taille_reelle ,int valeur){
 }
 
 void detasser(int* tab, int* taille_utile){
-    printf("Voici le premier element du tableau: %d\n",tab[0]);
-    printf("Voici l'élément le plus à droite possible du dernier niveau: %d \n", tab[*taille_utile - 1]);
     tab[0] = tab[*taille_utile - 1];
     *taille_utile = *taille_utile - 1;
     int indice  = 0;
     while (GAUCHE(indice) < *taille_utile){
-        //imagine juste fils gauche
         int indice_min_fils = GAUCHE(indice);
         if(DROITE(indice) < *taille_utile && tab[DROITE(indice)] < tab[indice_min_fils]){
             indice_min_fils = DROITE(indice);
@@ -63,6 +60,11 @@ void afficher_tas(int* tab, int taille) {
     }
     printf("]\n");
 }
+
+
+
+
+
 int main(void) {
     int tas[CAPACITE_MAX];
     int taille_utile = 0;
@@ -91,6 +93,12 @@ int main(void) {
     // printf("=== DESTRUCTION DU TAS ===\n");
     // detasser(tas, &taille_utile);
     // afficher_tas(tas, taille_utile);
+    printf("Tableau trié : ");
+    while (taille_utile > 0) {
+        printf("%d ", tas[0]); 
+        detasser(tas, &taille_utile); 
+    }
+    printf("\n");
 
     return 0;
 }
