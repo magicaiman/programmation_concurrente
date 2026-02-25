@@ -20,6 +20,8 @@ char* reverse_ordre(char* text){
 
 
 int main(int argc, char* argv[]){
-    printf("le resultat est %s",reverse_ordre(argv[1]));
+    for(int i=1;i<argc;i++){
+        printf("%s \n",reverse_ordre(argv[i]));
+    }
     return 0;
 }
